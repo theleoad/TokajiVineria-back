@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;
 import com.unievangelica.progwebback.dominio.categoria.Categoria;
 import com.unievangelica.progwebback.dominio.nacionalidade.Nacionalidade;
+import com.unievangelica.progwebback.dominio.harmonizacao.Harmonizacao;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,8 +42,20 @@ public class Produto implements Serializable {
     @JoinColumn(name = "nacionalidade_id", referencedColumnName = "id")
     private Nacionalidade nacionalidade;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "harmonizacao_id", referencedColumnName = "id")
+    private Harmonizacao harmonizacao;
+
 
     // GET & SET
+
+    public Harmonizacao getHarmonizacao() {
+        return harmonizacao;
+    }
+
+    public void setHarmonizacao(Harmonizacao harmonizacao) {
+        this.harmonizacao = harmonizacao;
+    }
 
     public Nacionalidade getNacionalidade() {
         return nacionalidade;
