@@ -1,14 +1,16 @@
 package com.unievangelica.progwebback.dominio.produto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.internal.NotNull;
+import com.unievangelica.progwebback.dominio.categoria.Categoria;
+import com.unievangelica.progwebback.dominio.nacionalidade.Nacionalidade;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "produto")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //Gambiarra kkkkk que funcion
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Produto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,8 +33,33 @@ public class Produto implements Serializable {
     @Column(name = "preco")
     private Float preco;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
+    private Categoria categoria;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nacionalidade_id", referencedColumnName = "id")
+    private Nacionalidade nacionalidade;
+
 
     // GET & SET
+
+    public Nacionalidade getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(Nacionalidade nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     public long getId() {
         return id;
     }
